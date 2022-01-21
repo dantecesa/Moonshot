@@ -31,15 +31,23 @@ struct ContentView: View {
                                 
                                 Text(mission.displayName)
                                     .font(.headline)
+                                    .foregroundColor(.white)
                                 
                                 Text(mission.formattedDate)
                                     .font(.caption)
+                                    .foregroundColor(.white.opacity(0.5))
                             }
-                            .frame(maxWidth: .infinity)
+                            .padding(20)
+                            .background(.ultraThinMaterial)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .padding(5)
                         }
                     }
-                }
-            }.navigationTitle("Moonshot")
+                }.padding()
+            }
+            .background(.darkBackground)
+            .preferredColorScheme(.dark)
+            .navigationTitle("Moonshot")
         }
     }
 }
