@@ -18,7 +18,12 @@ extension Bundle {
             fatalError("We could not load data from \(file).")
         }
         
-        guard let decoded_data = try? JSONDecoder().decode(T.self, from: data) else {
+        let decoder = JSONDecoder()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        
+        guard let decoded_data = try? decoder.decode(T.self, from: data) else {
             fatalError("We could not decode data in \(file).")
         }
         
