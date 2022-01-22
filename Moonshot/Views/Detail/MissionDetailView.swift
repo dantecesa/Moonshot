@@ -13,7 +13,6 @@ struct CrewMember {
 }
 
 struct MissionDetailView: View {
-
     let mission: Mission
     let crew: [CrewMember]
     

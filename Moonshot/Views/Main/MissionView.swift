@@ -35,6 +35,7 @@ struct MissionView: View {
                     }.pickerStyle(.segmented)
                 }
             }
+            MissionDetailView(mission: missions[0], astronauts: astronauts)
         }
     }
 }
