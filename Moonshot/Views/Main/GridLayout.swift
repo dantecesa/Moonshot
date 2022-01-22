@@ -12,7 +12,7 @@ struct GridLayout: View {
     let astronauts: [String: Astronaut]
     
     let columns = [
-        GridItem(.adaptive(minimum: 150))
+        GridItem(.adaptive(minimum: 125))
     ]
     
     var body: some View {
