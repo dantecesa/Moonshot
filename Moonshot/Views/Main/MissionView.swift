@@ -11,7 +11,7 @@ struct MissionView: View {
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
     
-    let viewTypes: [String] = ["Grid", "Layout"]
+    let viewTypes: [String] = ["Grid", "List"]
     @State var selectedView: Int = 0
     
     var body: some View {
