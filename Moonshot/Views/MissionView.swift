@@ -1,97 +1,59 @@
 //
-//  MissionView.swift
+//  ContentView.swift
 //  Moonshot
 //
-//  Created by Dante Cesa on 1/21/22.
+//  Created by Dante Cesa on 1/20/22.
 //
 
 import SwiftUI
 
 struct MissionView: View {
-    struct CrewMember {
-        let role: String
-        let astronaut: Astronaut
-    }
-
-    let mission: Mission
-    let crew: [CrewMember]
+    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
+    let missions: [Mission] = Bundle.main.decode("missions.json")
     
-    init(mission: Mission, astronauts: [String: Astronaut]) {
-        self.mission = mission
-        
-        self.crew = mission.crew.map { member in
-            if let astronaut = astronauts[member.name] {
-                return CrewMember(role: member.role, astronaut: astronaut)
-            }
-            fatalError("Unable to find \(member.name)")
-        }
-    }
+    let columns = [
+        GridItem(.adaptive(minimum: 150))
+    ]
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical) {
-                VStack(spacing: 20) {
-                    Image(mission.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: geometry.size.width * 0.6)
-                        .clipped()
-                        .padding(.top)
-                    
-                    VStack (alignment: .leading) {
-                        Text("Mission Highlights")
-                            .font(.title.bold())
-                            .padding(.bottom, 5)
-                         
-                        Text(mission.description)
-                        
-                        Text("Crew")
-                            .font(.title.bold())
-                            .padding(.top, 5)
-                    }
-                    .padding(.horizontal)
-                }
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(crew, id:\.role) { crewMember in
-                            NavigationLink (destination: {
-                                AstronautView(astronaut: crewMember.astronaut)
-                            }, label: {
-                                Image(crewMember.astronaut.id)
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(missions) { mission in
+                        NavigationLink {
+                            MissionDetailView(mission: mission, astronauts: astronauts)
+                        } label: {
+                            VStack {
+                                Image(mission.image)
                                     .resizable()
-                                    .frame(width: 104, height: 72)
-                                    .clipShape(Capsule())
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
                                 
-                                VStack(alignment: .leading) {
-                                    Text(crewMember.astronaut.name)
-                                        .font(.headline.bold())
-                                        .foregroundColor(.white)
-                                    
-                                    Text(crewMember.role)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                }
-                            })
+                                Text(mission.displayName)
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                
+                                Text(mission.formattedDate)
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.5))
+                            }
+                            .padding(20)
+                            .background(.ultraThinMaterial)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .padding(5)
                         }
-                    }.padding(.horizontal)
-                }
+                    }
+                }.padding()
             }
-        }.navigationTitle(mission.displayName)
             .background(.darkBackground)
+            .preferredColorScheme(.dark)
+            .navigationTitle("Moonshot")
+        }
     }
 }
 
-struct MissionView_Previews: PreviewProvider {
-    static let missions: [Mission] = Bundle.main.decode("missions.json")
-    static let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
-    
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            MissionView(mission: missions[0], astronauts: astronauts)
-                .preferredColorScheme(.dark)
-            MissionView(mission: missions[0], astronauts: astronauts)
-                .preferredColorScheme(.dark)
-.previewInterfaceOrientation(.portraitUpsideDown)
-        }
+        MissionView()
     }
 }
