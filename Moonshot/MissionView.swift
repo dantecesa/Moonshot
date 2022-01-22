@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct MissionView: View {
+    struct CrewMember {
+        let role: String
+        let astronaut: Astronaut
+    }
+
     let mission: Mission
-    let astronauts: [String: Astronaut]
+    let crew: [CrewMember]
+    
+    init(mission: Mission, astronauts: [String: Astronaut]) {
+        self.mission = mission
+        
+        self.crew = mission.crew.map { member in
+            if let astronaut = astronauts[member.name] {
+                return CrewMember(role: member.role, astronaut: astronaut)
+            }
+            fatalError("Unable to find \(member.name)")
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -37,19 +53,24 @@ struct MissionView: View {
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(mission.crew, id:\.name) { crewMember in
-                            let astronaut = astronauts[crewMember.name]
-                            
+                        ForEach(crew, id:\.role) { crewMember in
                             NavigationLink (destination: {
                                 Text("A astronaut detail view")
                             }, label: {
-                                Image(astronaut?.id ?? "")
+                                Image(crewMember.astronaut.id)
                                     .resizable()
                                     .frame(width: 104, height: 72)
                                     .clipShape(Capsule())
-                                Text(astronaut?.name ?? "")
-                                    .font(.headline.bold())
-                                    .foregroundColor(.white)
+                                
+                                VStack(alignment: .leading) {
+                                    Text(crewMember.astronaut.name)
+                                        .font(.headline.bold())
+                                        .foregroundColor(.white)
+                                    
+                                    Text(crewMember.role)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
                             })
                         }
                     }.padding(.horizontal)
