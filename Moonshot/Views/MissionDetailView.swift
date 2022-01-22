@@ -7,11 +7,12 @@
 
 import SwiftUI
 
+struct CrewMember {
+    let role: String
+    let astronaut: Astronaut
+}
+
 struct MissionDetailView: View {
-    struct CrewMember {
-        let role: String
-        let astronaut: Astronaut
-    }
 
     let mission: Mission
     let crew: [CrewMember]
@@ -54,24 +55,7 @@ struct MissionDetailView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(crew, id:\.role) { crewMember in
-                            NavigationLink (destination: {
-                                AstronautDetailView(astronaut: crewMember.astronaut)
-                            }, label: {
-                                Image(crewMember.astronaut.id)
-                                    .resizable()
-                                    .frame(width: 104, height: 72)
-                                    .clipShape(Capsule())
-                                
-                                VStack(alignment: .leading) {
-                                    Text(crewMember.astronaut.name)
-                                        .font(.headline.bold())
-                                        .foregroundColor(.white)
-                                    
-                                    Text(crewMember.role)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                }
-                            })
+                            AstronautButton(crewMember: crewMember)
                         }
                     }.padding(.horizontal)
                 }
