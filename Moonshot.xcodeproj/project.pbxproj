@@ -48,6 +48,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B70F8F0279BC192009C164F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6B18BAC0279A668000450359 /* Astronaut.swift */,
+				6B18BAC4279A6AA600450359 /* Mission.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6B70F8F1279BC19B009C164F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6B8BBC20279A104100708B12 /* ContentView.swift */,
+				6B705A4E279B4A5D00F82737 /* MissionView.swift */,
+				6B70F8EE279BBD86009C164F /* AstronautView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6B70F8F2279BC1AE009C164F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6B18BAC2279A66C300450359 /* Astronaut-Decoder.swift */,
+				6B18BABD279A649100450359 /* astronauts.json */,
+				6B18BABC279A649100450359 /* missions.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		6B8BBC12279A104100708B12 = {
 			isa = PBXGroup;
 			children = (
@@ -68,15 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				6B8BBC1E279A104100708B12 /* MoonshotApp.swift */,
-				6B8BBC20279A104100708B12 /* ContentView.swift */,
 				6B18BAC6279A751E00450359 /* Color-Theme.swift */,
-				6B18BAC0279A668000450359 /* Astronaut.swift */,
-				6B18BAC4279A6AA600450359 /* Mission.swift */,
-				6B18BAC2279A66C300450359 /* Astronaut-Decoder.swift */,
-				6B705A4E279B4A5D00F82737 /* MissionView.swift */,
-				6B70F8EE279BBD86009C164F /* AstronautView.swift */,
-				6B18BABD279A649100450359 /* astronauts.json */,
-				6B18BABC279A649100450359 /* missions.json */,
+				6B70F8F0279BC192009C164F /* Models */,
+				6B70F8F1279BC19B009C164F /* Views */,
+				6B70F8F2279BC1AE009C164F /* Data */,
 				6B8BBC22279A104200708B12 /* Assets.xcassets */,
 				6B8BBC24279A104200708B12 /* Preview Content */,
 			);
