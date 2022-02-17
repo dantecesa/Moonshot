@@ -18,6 +18,8 @@ struct AstronautButton: View {
                 .resizable()
                 .frame(width: 104, height: 72)
                 .clipShape(Capsule())
+                .accessibilityElement()
+                .accessibilityLabel(crewMember.astronaut.name.replacingOccurrences(of: ".", with: " "))
             
             VStack(alignment: .leading) {
                 Text(crewMember.astronaut.name)

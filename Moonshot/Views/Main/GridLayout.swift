@@ -27,6 +27,8 @@ struct GridLayout: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 100, height: 100)
+                                .accessibilityElement()
+                                .accessibilityLabel("Mission badge for \(mission.displayName)")
                             
                             Text(mission.displayName)
                                 .font(.headline)

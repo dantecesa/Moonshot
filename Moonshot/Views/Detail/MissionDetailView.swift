@@ -37,6 +37,8 @@ struct MissionDetailView: View {
                         .frame(maxWidth: geometry.size.width * 0.6)
                         .clipped()
                         .padding(.top)
+                        .accessibilityElement()
+                        .accessibilityLabel(mission.badge)
                     
                     VStack (alignment: .leading) {
                         Text("Mission Highlights")
